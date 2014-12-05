@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+BODY {
+	FONT-FAMILY: "맑은 고딕";
+	font-size: 13px;
+}
+
+#header {
+	text-align: right;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+
+.user-profile {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.user-head {
+	margin-left: 150px;
+	margin-top: 80px;
+}
+
+.user-content {
+	margin-left: 150px;
+	margin-right: 40%;
+	margin-top: 30px;
+	text-align: center;
+}
