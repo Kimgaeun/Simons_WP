@@ -10,10 +10,11 @@
 	<div id='header'>
 		<jsp:include page="./share/header.jsp">
 			<jsp:param name="sessionID" value="${sessionScope.id}" />
+			<jsp:param name="admin" value="${sessionScope.ad}" />
 		</jsp:include>
 	</div>
 	<div class="pull-left">
-		<jsp:include page="./share/user_left.jsp"></jsp:include>
+		<jsp:include page="./share/left_tab.jsp"></jsp:include>
 	</div>
 	
 	<div class="container">
@@ -36,7 +37,7 @@
 								<input type="button" class="btn btn-default btn-primary emailCheck"
 									value="중복확인">
 							</div>
-							<div class="checkResult1"></div>
+							<div class="checkResult1 local-center"></div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="pwd">비밀번호</label>
@@ -61,7 +62,7 @@
 								<input type="button" class="btn btn-default btn-primary nameCheck"
 									value="중복확인">
 							</div>
-							<div class="checkResult2"></div>
+							<div class="checkResult2 local-center"></div>
 						</div>
 
 						<div class="form-group">

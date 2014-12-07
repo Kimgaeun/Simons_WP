@@ -1,9 +1,27 @@
 @CHARSET "UTF-8";
 
-BODY {
+BODY{
 	FONT-FAMILY: "맑은 고딕";
 	font-size: 13px;
+	width: 90%;
+	margin: 0 auto;
 }
+
+#header{
+	text-align:right;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+
+html,body{height:100px}
+body{margin:0 auto;}
+#body{min-height:100px}
+#content{padding-bottom:10px}
+#foot{margin-top:-10px;height:10px; text-align:center;}
+
+hr.two{width:70%; color:red; border: thin solid red;}
+
+#center{text-align:center; margin: 0 auto;}
 
 #header {
 	text-align: right;
@@ -11,19 +29,38 @@ BODY {
 	margin-top: 10px;
 }
 
-.user-profile {
-	margin-top: 50px;
-	text-align: center;
+.local-center{text-align:center; margin: 0 auto;}
+
+#top {
+	position: fixed;
+	right: 0;
+	left: 0;
+	min-height: 300px;
 }
 
-.user-head {
-	margin-left: 150px;
+.content-head {
+	margin-left: 100px;
 	margin-top: 80px;
 }
 
 .user-content {
-	margin-left: 150px;
+	padding-left: 100px;
 	margin-right: 40%;
 	margin-top: 30px;
-	text-align: center;
+}
+
+.admin-head {
+	margin-left: 120px;
+	margin-top: 80px;
+}
+
+.admin-content {
+	margin-top: 30px;
+	margin-left: 150px;
+	margin-right: 100px;
+}
+
+.alert-content {
+	margin-top:30px;
+	margin-left: 90px;
 }

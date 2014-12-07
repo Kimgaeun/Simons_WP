@@ -13,8 +13,15 @@
 			<jsp:param name="admin" value="${sessionScope.ad}" />
 		</jsp:include>
 	</div>
-	<div class="pull-left">
+	<div class='pull-left'>
 		<jsp:include page="./share/left_tab.jsp"></jsp:include>
+	</div>
+
+	<div class="container">
+		<div class="admin-head">
+			<h1>관리자 페이지</h1>
+		</div>
+		<hr />
 	</div>
 </body>
 </html>

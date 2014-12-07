@@ -6,6 +6,7 @@ public class User implements java.io.Serializable {
 	private String pwd;
 	private String phoneNum;
 	private String name;
+	private int admin;
 
 	public User() {}
 	
@@ -16,6 +17,17 @@ public class User implements java.io.Serializable {
 		this.pwd = pwd;
 		this.phoneNum = phoneNum;
 		this.name = name;
+		this.admin = 0;
+	}
+	
+	public User(int id, String email, String pwd, String phoneNum, String name, int admin) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.pwd = pwd;
+		this.phoneNum = phoneNum;
+		this.name = name;
+		this.admin = admin;
 	}
 
 	public String getName() {
@@ -24,6 +36,14 @@ public class User implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
 	}
 
 	public int getId() {

@@ -10,14 +10,15 @@
 	<div id='header'>
 		<jsp:include page="./share/header.jsp">
 			<jsp:param name="sessionID" value="${sessionScope.id}" />
+			<jsp:param name="admin" value="${sessionScope.ad}" />
 		</jsp:include>
 	</div>
 	<div class="pull-left">
-		<jsp:include page="./share/user_left.jsp"></jsp:include>
+		<jsp:include page="./share/left_tab.jsp"></jsp:include>
 	</div>
 	
 	<div class="container">
-		<div class="alert alert-danger">
+		<div class="alert alert-danger alert-content">
 			<c:out value="${error}" />
 
 			<c:if test="${errorMsgs != null || errorMsgs.size() > 0 }">

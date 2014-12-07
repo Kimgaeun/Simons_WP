@@ -45,10 +45,11 @@ public class LoginServlet extends HttpServlet {
 		try {
 			if ((user = UserDAO.checkLogin(email, pwd)) != null) {
 				HttpSession session = req.getSession();
-				session.setAttribute("id", user.getId());
-				//session.setAttribute("name", user.getName());
-				//session.setAttribute("phoneNum", user.getPhoneNum());
+				session.setAttribute("ad", user.getAdmin());
+				session.setAttribute("id", user.getAdmin());
+				
 				req.setAttribute("op", "success");
+				req.setAttribute("msg", "로그인에 성공하였습니다");
 				actionUrl = "success.jsp";
 			} else {
 				errorMsgs.add("아이디와 비밀번호를 확인해주세요");
