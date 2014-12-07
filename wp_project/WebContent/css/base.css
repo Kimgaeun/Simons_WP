@@ -64,3 +64,22 @@ hr.two{width:70%; color:red; border: thin solid red;}
 	margin-top:30px;
 	margin-left: 90px;
 }
+
+.suggest_box {
+	position: absolute;
+	background-color: #c0c0c0;
+	color: #000000;
+	width: 110px;
+	z-index: 3;
+}
+
+.suggest_box li {
+	padding: 5px;
+	cursor: pointer;
+	width: 110px;
+	list-style-type: none;
+}
+
+.suggest_box li:hover {
+	background-color: #ff0000;
+}

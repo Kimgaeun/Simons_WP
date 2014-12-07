@@ -26,8 +26,8 @@ public class BrandDAO {
 		return (DataSource) envCtx.lookup("jdbc/WebDB");
 	}
 
-	public static List<Brand> getBrands() throws NamingException, SQLException {
-		List<Brand> list = new ArrayList<Brand>();
+	public static List<String> getBrands() throws NamingException, SQLException {
+		List<String> list = new ArrayList<String>();
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -43,7 +43,7 @@ public class BrandDAO {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				list.add(new Brand(rs.getInt("id"), rs.getString("name")));
+				list.add(rs.getString("name"));
 			}
 		} finally {
 			if (rs != null) try{rs.close();} catch(SQLException e) {}

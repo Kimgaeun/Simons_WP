@@ -11,32 +11,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.ac.mju.dislab.THA.CheckDAO;
+import kr.ac.mju.dislab.THA.BrandDAO;
 
-@WebServlet("/CheckServlet")
-public class CheckServlet extends HttpServlet {
-	@Override
+@WebServlet("/BrandSuggestServlet")
+public class BrandSuggestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html");
-		String op = req.getParameter("op");
-		String val = req.getParameter("val");
+		String query = req.getParameter("query");
 		PrintWriter out = resp.getWriter();
-		
 		try {
-			if (op.equals("email")) {
-				if (CheckDAO.checkEmail(val)) {
-					out.println("사용하실 수 없는 계정입니다.");
-				} else {
-					out.println("사용하실 수 있습니다.");
-				}
-
-			} else if (op.equals("name")) {
-				if (CheckDAO.checkName(val)) {
-					out.println("사용하실 수 없는 닉네임입니다.");
-				} else {
-					out.println("사용하실 수 있습니다.");
+			if (query == null) {
+				out.println("");
+			} else {
+				if (query.length() > 0) {
+					for (String brand : BrandDAO.getBrands()) {
+						if (brand.contains(query)) {
+							out.println("<li onclick=\"fill('"+brand+"');\" class=\"col-sm-4\">" + brand + "</li>");
+						}
+					}
 				}
 			}
 		} catch (NamingException | SQLException e) {
