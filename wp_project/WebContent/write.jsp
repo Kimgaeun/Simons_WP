@@ -4,23 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/styles_sidenav.css">
-<script src="js/jquery-latest.min.js" type="text/javascript"></script>
-<script src="js/script_sidenav.js"></script>
-<title>당신은 더.호.아</title>
-<link rel="SHORTCUT ICON" href="./images/titlelogo.png" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/base.css" rel="stylesheet">
-<script src="js/jquery-1.8.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-
+<jsp:include page="./share/link.jsp"></jsp:include>
 <script>
 	$(function() {
 		$("#datepicker1").datepicker();
@@ -35,12 +19,13 @@
 
 <body>
 	<div id='header'>
-		<a href='Login.jsp'>로그인</a> | <a href='Join.jsp'>회원가입</a>
+		<jsp:include page="./share/header.jsp">
+			<jsp:param name="sessionID" value="${sessionScope.id}" />
+		</jsp:include>
 	</div>
-
-	<a href='Main.jsp'><img class="pull-left" src="./images/logo.png"
-		width="150"></a>
-	<br>
+	<div class="pull-left">
+		<jsp:include page="./share/user_left.jsp"></jsp:include>
+	</div>
 
 	<div class="container">
 		<div>
@@ -49,7 +34,7 @@
 			</div>
 			<hr />
 			<div class="user-content">
-				<form class="form-horizontal" action="user" method="POST">
+				<form class="form-horizontal" action="post" method="POST">
 				
 					<fieldset>
 						<div class="form-group">
@@ -64,17 +49,9 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="title">글　제목</label>
+							<label class="col-sm-3 control-label" for="title">글 제 목</label>
 							<div class="col-sm-9">
-								<input type="title" class="form-control" name="title">
-							</div>
-						</div>
-						
-							<div class="form-group">
-							<label class="col-sm-3 control-label" for="item">세일품목</label>
-							<div class="col-sm-9">
-								<input type="item" class="form-control" name="item">
-								품목이 여러가지 일 경우 ',(콤마)'로 구분하여 작성해주세요!
+								<input type="text" class="form-control" name="title">
 							</div>
 						</div>
 						
@@ -88,12 +65,11 @@
 						</div>
 						
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="plus">추가 할인 및　　 할인 조건</label>
-							<div class="col-sm-9">
-								<input type="plus" class="form-control" name="plus">
+							<label class="col-sm-3 control-label" for="brand">브랜드</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="brand">
 							</div>
 						</div>
-						
 								
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="content">추가 내용</label>
@@ -101,12 +77,11 @@
 							<textarea class="form-control" rows="9"  id = "content"  name="content"  ></textarea>
 							</div>
 						</div>
-
-						
-						<p>
-							<button type="reset" class="btn btn-primary pull-right">취소</button>
+												
+						<div class="form-group">
 							<button type="submit" class="btn btn-primary pull-right">작성</button>
-						</p>
+							<button type="reset" class="btn btn-primary pull-right">다시쓰기</button>
+						</div>
 					</fieldset>
 				</form>
 			</div>

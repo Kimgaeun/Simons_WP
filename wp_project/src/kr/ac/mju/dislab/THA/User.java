@@ -1,19 +1,29 @@
-package javabean;
+package kr.ac.mju.dislab.THA;
 
 public class User implements java.io.Serializable {
 	private int id;
 	private String email;
 	private String pwd;
 	private String phoneNum;
+	private String name;
 
 	public User() {}
 	
-	public User(int id, String email, String pwd, String phoneNum) {
+	public User(int id, String email, String pwd, String phoneNum, String name) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.pwd = pwd;
 		this.phoneNum = phoneNum;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getId() {

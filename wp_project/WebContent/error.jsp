@@ -4,14 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원목록</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/base.css" rel="stylesheet">
-<script src="js/jquery-1.8.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<jsp:include page="./share/link.jsp"></jsp:include>
 </head>
 <body>
+	<div id='header'>
+		<jsp:include page="./share/header.jsp">
+			<jsp:param name="sessionID" value="${sessionScope.id}" />
+		</jsp:include>
+	</div>
+	<div class="pull-left">
+		<jsp:include page="./share/user_left.jsp"></jsp:include>
+	</div>
+	
 	<div class="container">
 		<div class="alert alert-danger">
 			<c:out value="${error}" />

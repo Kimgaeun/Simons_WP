@@ -1,4 +1,4 @@
-package javabean;
+package kr.ac.mju.dislab.THA;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

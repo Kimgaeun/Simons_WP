@@ -4,10 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<jsp:include page="./share/link.jsp"></jsp:include>
 </head>
 <body>
-	<a href="user?op=update&id=${user.id}" class="btn btn-default btn-xs">modify</a>
+	<div id='header'>
+		<jsp:include page="./share/header.jsp">
+			<jsp:param name="sessionID" value="${sessionScope.id}" />
+		</jsp:include>
+	</div>
+	<div class="pull-left">
+		<jsp:include page="./share/user_left.jsp"></jsp:include>
+	</div>
 </body>
 </html>

@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="./share/link.jsp"></jsp:include>
 </head>
-
 <body>
 	<div id='header'>
 		<jsp:include page="./share/header.jsp">
@@ -18,23 +17,9 @@
 	</div>
 	
 	<div class="container">
-		<div class="user-head">
-			<h1>
-				<c:out value="${user.name }"></c:out>
-				회원님
-			</h1>
-		</div>
-		<hr />
-		<div class="pull-left">
-			<h3>
-				계 　　정 :
-				<c:out value="${user.email }"></c:out>
-			</h3>
-			<p />
-			<h3>
-				전화번호 :
-				<c:out value="${user.phoneNum }"></c:out>
-			</h3>
+		<div class="alert alert-success">${msg}</div>
+		<div>
+			<a href="user" class="btn btn-default">처음으로</a>
 		</div>
 	</div>
 </body>

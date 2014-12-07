@@ -1,4 +1,4 @@
-package javabean;
+package kr.ac.mju.dislab.THA;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class PostDAO {
 		return (DataSource) envCtx.lookup("jdbc/WebDB");
 	}
 
-	public static Post findPost(int id) throws NamingException, SQLException {
+	public static Post findById(int id) throws NamingException, SQLException {
 		Post post = null;
 
 		Connection conn = null;

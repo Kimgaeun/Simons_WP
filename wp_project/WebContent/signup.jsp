@@ -4,34 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/styles_sidenav.css">
-<script src="js/jquery-latest.min.js" type="text/javascript"></script>
-<script src="js/script_sidenav.js"></script>
-<title>당신은 더.호.아</title>
-<link rel="SHORTCUT ICON" href="./images/titlelogo.png" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/base.css" rel="stylesheet">
-<script src="js/jquery-1.8.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-
-
+<jsp:include page="./share/link.jsp"></jsp:include>
 </head>
 <body>
 	<div id='header'>
-		<a href='Login.jsp'>로그인</a> | <a href='Join.jsp'>회원가입</a>
+		<jsp:include page="./share/header.jsp">
+			<jsp:param name="sessionID" value="${sessionScope.id}" />
+		</jsp:include>
 	</div>
-
-	<a href='Main.jsp'><img class="pull-left" src="./images/logo.png"
-		width="150"></a>
-	<br>
-
+	<div class="pull-left">
+		<jsp:include page="./share/user_left.jsp"></jsp:include>
+	</div>
+	
 	<div class="container">
 		<div>
 			<div class="user-head">
@@ -40,50 +24,77 @@
 			<hr />
 			<div class="user-content">
 				<form class="form-horizontal" action="user" method="POST">
-				
 					<fieldset>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="email">E - mail</label>
-							<div class="col-sm-7" >
-								<input type="email" class="form-control"placeholder="hong@abc.com" name="email">
-								<input type="button" class="btn btn-default btn-primary pull-right" name="checker" value="중복확인">
+							<label class="col-sm-3 control-label" for="email">E -
+								mail</label>
+							<div class="col-sm-7">
+								<input type="email" class="form-control email"
+									placeholder="hong@abc.com" name="email">
 							</div>
+							<div class="col-sm-2 control checker">
+								<input type="button" class="btn btn-default btn-primary emailCheck"
+									value="중복확인">
+							</div>
+							<div class="checkResult1"></div>
 						</div>
-						
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="pwd">비밀번호</label>
 							<div class="col-sm-7">
 								<input type="password" class="form-control" name="pwd">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
-							<label class="col-sm-3 control-label" for="pwd_confirm">확　　인</label>
+							<label class="col-sm-3 control-label" for="pwd_confirm">확 인</label>
 							<div class="col-sm-7">
 								<input type="password" class="form-control" name="pwd_confirm">
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="name">닉 네 임</label>
+							<div class="col-sm-7">
+								<input type="text" class="form-control name" name="name">
+							</div>
+							<div class="col-sm-2 control checker">
+								<input type="button" class="btn btn-default btn-primary nameCheck"
+									value="중복확인">
+							</div>
+							<div class="checkResult2"></div>
+						</div>
+
 						<div class="form-group">
 							<label class="col-sm-3 control-label" for="phoneNum">전화번호</label>
-							<div class="col-sm-7"> 
-								<input type="text" class="form-control" placeholder="'-'없이 숫자만 입력해주세요." name="phoneNum">
-							</div>
-						</div>
-						
-							<div class="form-group">
-							<label class="col-sm-3 control-label" for="phoneNum">닉 네 임</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" name="phoneNum">
-								<input type="button" class="btn btn-default btn-primary pull-right" name="checker" value="중복확인">
+								<input type="text" class="form-control"
+									placeholder="'-'없이 숫자만 입력해주세요." name="phoneNum">
 							</div>
 						</div>
-					
-						<input type="reset" class="btn btn-default btn-primary pull-right" value="취소">
-						<input type="submit" class="btn btn-default btn-primary pull-right" value="가입">
+
+						<div class="form-group local-center">
+							<input type="submit" class="btn btn-default btn-primary"
+								value="가입">
+						</div>
 					</fieldset>
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function() {
+		$('.emailCheck').click(function() {
+			$.post('CheckServlet', {op: "email", val: $('.email').val()}, function(data) {
+				$('.checkResult1').html(data).show();
+			});
+		});
+		
+		$('.nameCheck').click(function() {
+			$.post('CheckServlet', {op: "name", val: $('.name').val()}, function(data) {
+				$('.checkResult2').html(data).show();
+			});
+		});
+	});
+</script>
 </html>

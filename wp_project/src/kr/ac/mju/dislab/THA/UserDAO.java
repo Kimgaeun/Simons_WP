@@ -1,4 +1,4 @@
-package javabean;
+package kr.ac.mju.dislab.THA;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -24,7 +24,9 @@ public class UserDAO {
 		return (DataSource) envCtx.lookup("jdbc/WebDB");
 	}
 	
-	public static boolean checkLogin(String email, String pwd) throws NamingException, SQLException {
+	public static User checkLogin(String email, String pwd) throws NamingException, SQLException {
+		User user = null;
+		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -41,9 +43,14 @@ public class UserDAO {
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				return true;
+				user = new User(rs.getInt("id"),
+						rs.getString("email"),
+						rs.getString("pwd"),
+						rs.getString("phoneNum"),
+						rs.getString("name"));
+				return user;
 			} else {
-				return false;
+				return user;
 			}
 		} finally {
 			if (rs != null) try{rs.close();} catch(SQLException e) {}
@@ -52,7 +59,7 @@ public class UserDAO {
 		}
 	}
 
-	public static User findUser(int id) throws NamingException, SQLException {
+	public static User findById(int id) throws NamingException, SQLException {
 		User user = null;
 		
 		Connection conn = null;
@@ -73,7 +80,8 @@ public class UserDAO {
 				user = new User(rs.getInt("id"),
 						rs.getString("email"),
 						rs.getString("pwd"),
-						rs.getString("phoneNum"));
+						rs.getString("phoneNum"),
+						rs.getString("name"));
 				
 			}
 		} finally {
@@ -97,12 +105,13 @@ public class UserDAO {
 			conn = ds.getConnection();
 			
 			stmt = conn.prepareStatement(
-					"INSERT INTO users(email, pwd, phoneNum)" + 
-					"VALUES(?, ?, ?)"
+					"INSERT INTO users(email, pwd, phoneNum, name)" + 
+					"VALUES(?, ?, ?, ?)"
 					);
 			stmt.setString(1, user.getEmail());
 			stmt.setString(2, user.getPwd());
 			stmt.setString(3, user.getPhoneNum());
+			stmt.setString(4, user.getName());
 			
 			result = stmt.executeUpdate();
 		} finally {
@@ -127,12 +136,13 @@ public class UserDAO {
 			
 			stmt = conn.prepareStatement(
 					"UPDATE users" + 
-					"SET pwd=?, phoneNum=?" + 
+					"SET pwd=?, phoneNum=?,name=?" + 
 					"WHERE id=?"
 					);
 			stmt.setString(1, user.getPwd());
 			stmt.setString(2, user.getPhoneNum());
-			stmt.setInt(3, user.getId());
+			stmt.setString(3, user.getName());
+			stmt.setInt(4, user.getId());
 			
 			result = stmt.executeUpdate();
 		} finally {

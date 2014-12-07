@@ -1,12 +1,9 @@
-package servlet;
+package kr.ac.mju.dislab.THA.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javabean.User;
-import javabean.UserDAO;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.ac.mju.dislab.THA.User;
+import kr.ac.mju.dislab.THA.UserDAO;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
@@ -35,29 +35,41 @@ public class UserServlet extends HttpServlet {
 		String op = req.getParameter("op");
 		String actionUrl = "";
 		boolean ret;
+		if(op == null || op.length() == 0) {
+			op = "index";
+		}
 		
 		int id = getIntFromParameter(req.getParameter("id"), -1);
+		
 		try {
-			if (op.equals("signup")) {
+			if (op.equals("index")) {
+				actionUrl = "index.jsp";
+			} else if (op.equals("signup")) {
 				actionUrl = "signup.jsp";
 				req.setAttribute("method", "POST");
 				req.setAttribute("user", new User());
 			} else if (op.equals("update")) {
-				User user = UserDAO.findUser(id);
-				actionUrl = "signup.jsp";
+				id = (int)req.getSession(false).getAttribute("id");
+				User user = UserDAO.findById(id);
+				actionUrl = "user_edit.jsp";
+				req.setAttribute("method", "PUT");
 				req.setAttribute("user", user);
-			
 			} else if (op.equals("delete")) {
 				ret = UserDAO.delete(id);
 				req.setAttribute("result", ret);
 				
 				if (ret) {
-					req.setAttribute("msg", "»ç¿ëÀÚ Á¤º¸°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+					req.setAttribute("msg", "ì‚¬ìš©ì ì •ë³´ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 					actionUrl = "success.jsp";
 				} else {
-					req.setAttribute("error",  "»ç¿ëÀÚ Á¤º¸ »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+					req.setAttribute("error",  "ì‚¬ìš©ì ì •ë³´ ì‚­ì œì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 					actionUrl = "error.jsp";
 				}
+			} else if (op.equals("show")) {
+				id = (int)req.getSession(false).getAttribute("id");
+				User user = UserDAO.findById(id);
+				actionUrl = "user_MyPage.jsp";
+				req.setAttribute("user", user);
 			}
 		} catch (Exception e) {
 			req.setAttribute("error", e.getMessage());
@@ -86,40 +98,45 @@ public class UserServlet extends HttpServlet {
 		String pwd = req.getParameter("pwd");
 		String pwd_confirm = req.getParameter("pwd_confirm");
 		String phoneNum = req.getParameter("phoneNum");
+		String name = req.getParameter("name");
 		
 		List<String> errorMsgs = new ArrayList<String>();
 		
-		if (isRegisterMode(req)) {
+		if (!isRegisterMode(req)) {
 			if (pwd == null || pwd.length() < 6) {
-				errorMsgs.add("ºñ¹Ğ¹øÈ£´Â 6ÀÚ ÀÌ»ó ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				errorMsgs.add("ë¹„ë°€ë²ˆí˜¸ëŠ” 6ìë¦¬ ì´ìƒìœ¼ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”");
 			} 
 			
 			if (!pwd.equals(pwd_confirm)) {
-				errorMsgs.add("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				errorMsgs.add("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 		} else {
 			user.setId(getIntFromParameter(req.getParameter("id"), -1));
 		}
 
 		if (email == null || email.trim().length() == 0) {
-			errorMsgs.add("ID¸¦ ¹İµå½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			errorMsgs.add("IDë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		}
+		if (name == null || name.trim().length() == 0) {
+			errorMsgs.add("ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 		
 		user.setEmail(email);
 		user.setPwd(pwd);
 		user.setPhoneNum(phoneNum);
+		user.setName(name);
 		
 		try {
 			if (isRegisterMode(req)) {
 				ret = UserDAO.create(user);
-				msg = "<b>»ç¿ëÀÚ Á¤º¸°¡ µî·ÏµÇ¾ú½À´Ï´Ù.";
+				msg = "<b>ì‚¬ìš©ìê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.";
 			} else {
 				ret = UserDAO.update(user);
 				actionUrl = "success.jsp";
-				msg = "<b>»ç¿ëÀÚ Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+				msg = "<b>ì‚¬ìš©ì ì •ë³´ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.";
 			}
 			if (ret != true) {
-				errorMsgs.add("º¯°æ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+				errorMsgs.add("ì•Œìˆ˜ ì—†ëŠ” ëª…ë ¹ì…ë‹ˆë‹¤.");
 				actionUrl = "error.jsp";
 			} else {
 				req.setAttribute("msg", msg);
